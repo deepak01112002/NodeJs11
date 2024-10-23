@@ -48,11 +48,12 @@ const http = require("http")
 // Path;
 
 
-let a = path.join(__dirname,"app.txt")
+// let a = path.join(__dirname,"app.txt")
 
-console.log(path.extname(a))
+// console.log(path.extname(a))
 
 // http
+
 
 
 
