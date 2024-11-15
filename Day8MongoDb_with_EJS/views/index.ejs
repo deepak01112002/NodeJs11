@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All Books</h1>
+    <a href="/addBook">Add Book</a>
+     <% Books.map((el)=>{ %>
+           <h1>BookName :-<%= el.bookName %></h1>
+           <p>Description :-<%= el.des %></p>
+              <h3>Author :-<%= el.author %></h3>
+               <p>Price :-<%= el.price %></p>
+               <a href="/deleteBook/<%=el._id %>">Delete</a>
+               <a href="/editBook/<%=el._id%>">Edit</a>
+     <% }) %>
+    
+</body>
+</html>
