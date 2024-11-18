@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Book</h1>
+    <form action="/edit/<%= data._id %>" method="post">
+         <input type="text" placeholder="Name" name="name" value="<%= data.name %>">
+         <input type="text" placeholder="author" name="author" value="<%= data.author %>">
+         <input type="text" placeholder="Book Image" name="image" value="<%= data.image %>">
+         <input type="submit">
+    </form>
+</body>
+</html>
