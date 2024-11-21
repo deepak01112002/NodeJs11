@@ -8,10 +8,10 @@
 <body>
     <h1>All Books</h1>
      <%data.map((el)=>{ %>
-          <img src="<%= el.image %>" alt="<%= el.name %>" width="150px" height="150px">
+          <img src="/assets/<%= el.image %>" alt="<%= el.name %>" width="250px" height="250px">
           <h1><%= el.name %> - <%= el.author %></h1>
-          <a href="/delete/<%= el._id %>">Delete</a>
-          <a href="/edit/<%= el._id %>">Edit</a>
+          <a href="/delete/<%= el._id %>">Delete</a><br>
+          <a href="/edit/<%= el._id %>">Edit</a><br>
      <% }) %>
 </body>
 </html>

@@ -1,5 +1,8 @@
 const express = require("express")
 const connect = require("./Config/db")
+const path = require("path")
+const fs = require("fs")
+const multer = require("multer")
 const BookModel = require("./Model/bookSchema")
 
 const app = express()
@@ -8,13 +11,34 @@ app.set('view engine','ejs')
 app.use(express.urlencoded({extended : true}))
 app.use(express.static("public"))
 
+// multer start
+
+const s = multer.diskStorage({
+    destination : (req,file,cb)=>{
+        cb(null,path.join(__dirname,"/public/assets"))
+    },
+    filename : (req,file,cb)=>{
+       cb(null,file.originalname)
+    }
+}) 
+
+const Data = multer({storage : s})
+
+
+
+
+
+
 app.get("/",(req,res)=>{
     res.render("index.ejs")
 })
 
 
-app.post("/addBook",async (req,res)=>{
-     await BookModel.create(req.body)
+app.post("/addBook",Data.single("image"),async (req,res)=>{
+     await BookModel.create({
+        ...req.body,
+        image : req.file.filename
+     })
      res.redirect("/books")
 })
 
@@ -26,7 +50,14 @@ app.get("/books",async(req,res)=>{
 
 app.get("/delete/:id",async(req,res)=>{
     const {id} = req.params
-    await BookModel.findByIdAndDelete(id)
+    const data = await BookModel.findById(id);
+    if(data.image){
+       const image_path = path.join(__dirname,"/public/assets", data.image) 
+       if(fs.existsSync(image_path)){
+         fs.unlinkSync(image_path)
+       }
+    }
+   await BookModel.findByIdAndDelete(id)
     res.redirect("/books")
 })
 
