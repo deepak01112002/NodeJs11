@@ -7,10 +7,11 @@
 </head>
 <body>
     <h1>Edit Book</h1>
-    <form action="/edit/<%= data._id %>" method="post">
+    <img src="/assets/<%= data.image %>" alt="" width="250px">
+    <form action="/edit/<%= data._id %>" method="post" enctype="multipart/form-data">
          <input type="text" placeholder="Name" name="name" value="<%= data.name %>">
          <input type="text" placeholder="author" name="author" value="<%= data.author %>">
-         <input type="text" placeholder="Book Image" name="image" value="<%= data.image %>">
+         <input type="file" placeholder="Book Image" name="image" value="<%= data.image %>">
          <input type="submit">
     </form>
 </body>
