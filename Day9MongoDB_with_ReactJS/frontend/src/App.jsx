@@ -34,7 +34,7 @@ function App() {
           <input type="text"  placeholder='Book Name' name='bookName'  onChange={handleChange}/>
           <input type="text" placeholder='Description' name='des'  onChange={handleChange}/>
           <input type="text" placeholder='Author' name='author'  onChange={handleChange}/>
-          <input type="text" placeholder=' Image URL' name='image'  onChange={handleChange}/>
+          <input type="text" placeholder=' Image URL' name='img'  onChange={handleChange}/>
           <input type="text"  placeholder='Price' name='price'   onChange={handleChange}/>
           <input type="submit" />
       </form>

@@ -1,12 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+ <%- include("boilerplate.ejs",{title : "Add Book"}) %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 0
+ 
     <h1>Add Books</h1>
+    <%- include('Navbar.ejs') %>
     <form action="/addBook" method="post">
          <input type="text" name="bookName">
          <input type="text" name="des">
@@ -14,5 +44,6 @@
          <input type="text" name="price">
          <input type="submit">
     </form>
+    <%- include('Footer.ejs') %>
 </body>
 </html>
