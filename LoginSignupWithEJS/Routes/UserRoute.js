@@ -23,6 +23,8 @@ UserRouter.post("/signup",async(req,res)=>{
 })
 
 
+
+
 UserRouter.post("/login",async(req,res)=>{
       const {email,password}  = req.body
     try {
@@ -33,7 +35,7 @@ UserRouter.post("/login",async(req,res)=>{
         if(user.password != password){
             return res.status(401).json({msg : "Password Incorrect"})
         }
-        res.status(200).json({msg : "User Login Successfully"})
+        res.status(200).cookie("userId" , user._id.toString()).json({msg : "User Login Successfully"})
     } catch (error) {
         res.status(401).json({msg : error.message})
     }
