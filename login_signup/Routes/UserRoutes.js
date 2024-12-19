@@ -2,10 +2,13 @@ const {Router} = require("express")
 const bcrypt = require("bcrypt")
 var jwt = require('jsonwebtoken');
 const UserModel = require("../Model/userSchema")
+const nodemailer = require("nodemailer")
 require('dotenv').config()
 const UserRouter = Router()
 
-
+let otpStore = {
+   
+}
 
 UserRouter.post("/register",async(req,res)=>{
     try {
@@ -77,9 +80,53 @@ UserRouter.post("/changePassword",async(req,res)=>{
             }
         })
     } catch (error) {
+        res.status(400).send({msg : error.message})
+    }
+})
+
+
+UserRouter.post("/forgotPassword",async(req,res)=>{
+    const {email} = req.body;
+    try {
+        let user = await UserModel.findOne({email})
+        if(user){
+            let otp = Math.round(Math.random()*10000)
+            otpStore[email] = otp
+            console.log(otpStore);
+            
+           const transpoter = nodemailer.createTransport({
+                service : "gmail",
+                auth : {
+                    user : "hemanagsolanki10@gmail.com", 
+                    pass : "pixdctsztdggwhpy"
+                }
+           }) 
+           let mailOption = {
+               from : "hemanagsolanki10@gmail.com",
+               to : email,
+               subject : "OTP for Password Reset",
+               text : `Your otp for password reset is ${otp}`
+           }
+
+           transpoter.sendMail(mailOption,(error,info)=>{
+              if(error){
+                 return res.status(400).send({msg : "unable to send OTP"})
+              }
+              res.status(200).send({msg : "OTP Sended Successfully"})
+           })
+
+
+
+
+        }else{
+            res.status(500).send({msg : "Email Not Registered"})
+        }
+    } catch (error) {
         
     }
 })
+
+
 
 
 
