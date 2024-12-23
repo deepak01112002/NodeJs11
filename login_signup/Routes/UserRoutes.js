@@ -107,25 +107,37 @@ UserRouter.post("/forgotPassword",async(req,res)=>{
                subject : "OTP for Password Reset",
                text : `Your otp for password reset is ${otp}`
            }
-
            transpoter.sendMail(mailOption,(error,info)=>{
               if(error){
                  return res.status(400).send({msg : "unable to send OTP"})
               }
               res.status(200).send({msg : "OTP Sended Successfully"})
            })
-
-
-
-
         }else{
             res.status(500).send({msg : "Email Not Registered"})
+        }
+    } catch (error) {
+         
+    }
+})
+
+
+UserRouter.post("/resetPassword",async(req,res)=>{
+       const {email,otp,newPassword} = req.body
+       console.log(otpStore)
+    try {
+        if(otpStore[email]  == otp){
+            let hashedPassword = await bcrypt.hash(newPassword,10)
+            let data = await UserModel.findOneAndUpdate({email : email}, {password : hashedPassword})
+            otpStore[email] = ""
+            res.send({msg : "Password Changed Successfully",data})
+        }else{
+            res.send({msg : "OTP Incorrect"})
         }
     } catch (error) {
         
     }
 })
-
 
 
 
