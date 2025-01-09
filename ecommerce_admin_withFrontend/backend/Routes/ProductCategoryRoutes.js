@@ -15,5 +15,14 @@ ProductCategoryRoute.post("/add",isAdmin,async(req,res)=>{
 })
 
 
+ProductCategoryRoute.get("/all",async(req,res)=>{
+    try {
+        let data = await ProductCategoryModel.find().populate("subCatId");
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(501).send({msg : error.message})
+    }
+})
+
 
 module.exports = ProductCategoryRoute

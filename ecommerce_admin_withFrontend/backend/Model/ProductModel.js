@@ -5,7 +5,8 @@ const ProductSchema = mongoose.Schema({
     desc : {type : String, require : true},
     price : {type : String, require : true},
     image : {type : String, require : true},
-    category : {type : mongoose.Types.ObjectId, ref : "productsCategory"}
+    category : {type : mongoose.Types.ObjectId, ref : "productsCategory"},
+    subCategory :{type : mongoose.Types.ObjectId, ref : "productSubCat"}
 })
 
 const ProductModel = mongoose.model("products",ProductSchema)
